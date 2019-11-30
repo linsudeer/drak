@@ -1,0 +1,35 @@
+debug: false
+
+server:
+  port: 80
+  
+spring:
+  profiles: prod
+  redis:
+    host: localhost
+    port: 6379
+    password:
+  datasource:
+    url: jdbc:mysql://bp1y28w906ljtbwbuno.mysql.rds.aliyuncs.com:3306/blog?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: ZQlyb@ali
+    database: blog
+    filters: log4j,wall,mergeStat
+    
+logging:
+  level.root: info
+  level.com.linsu: info
+  path: logs/
+  file: blog.log
+
+fdfs:
+  # 状态，true 使用 false 不使用
+  use: false
+  http_server_url: http://192.168.12.128
+  tracker_server: 192.168.12.128:22122
+  connect_timeout: 50
+  network_timeout: 300
+  charset: UTF-8
+  http_tracker_http_port: 6666
+  http_anti_steal_token: no
+  http_secret_key: FastDFS1234567890

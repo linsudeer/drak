@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linsu.modular.blog.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.linsu.modular.blog.model.Article">
+    <id column="oid" jdbcType="BIGINT" property="oid" />
+    <result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
+    <result column="article_tags" jdbcType="VARCHAR" property="articleTags" />
+    <result column="article_author_email" jdbcType="VARCHAR" property="articleAuthorEmail" />
+    <result column="article_author_id" jdbcType="BIGINT" property="articleAuthorId" />
+    <result column="article_author_nickname" jdbcType="BIGINT" property="articleAuthorNickname" />
+    <result column="article_category_id" jdbcType="BIGINT" property="articleCategoryId" />
+    <result column="article_comment_count" jdbcType="INTEGER" property="articleCommentCount" />
+    <result column="article_view_count" jdbcType="INTEGER" property="articleViewCount" />
+    <result column="article_reward_point" jdbcType="INTEGER" property="articleRewardPoint" />
+    <result column="article_permalink" jdbcType="VARCHAR" property="articlePermalink" />
+    <result column="article_originlink" jdbcType="VARCHAR" property="articleOriginlink" />
+    <result column="article_latest_cmt_time" jdbcType="TIMESTAMP" property="articleLatestCmtTime" />
+    <result column="article_latest_cmter_name" jdbcType="VARCHAR" property="articleLatestCmterName" />
+    <result column="article_commentable" jdbcType="INTEGER" property="articleCommentable" />
+    <result column="article_status" jdbcType="INTEGER" property="articleStatus" />
+    <result column="article_type" jdbcType="INTEGER" property="articleType" />
+    <result column="article_good_count" jdbcType="INTEGER" property="articleGoodCount" />
+    <result column="article_bad_count" jdbcType="INTEGER" property="articleBadCount" />
+    <result column="article_collect_count" jdbcType="INTEGER" property="articleCollectCount" />
+    <result column="article_city" jdbcType="VARCHAR" property="articleCity" />
+    <result column="article_IP" jdbcType="VARCHAR" property="articleIp" />
+    <result column="article_source" jdbcType="VARCHAR" property="articleSource" />
+    <result column="article_thumb" jdbcType="VARCHAR" property="articleThumb" />
+    <result column="article_perfect" jdbcType="INTEGER" property="articlePerfect" />
+    <result column="article_create_time" jdbcType="TIMESTAMP" property="articleCreateTime" />
+    <result column="article_update_time" jdbcType="TIMESTAMP" property="articleUpdateTime" />
+
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.linsu.modular.blog.model.Article">
+    <result column="article_content" jdbcType="LONGVARCHAR" property="articleContent" />
+    <result column="article_content_html" jdbcType="LONGVARCHAR" property="articleContentHtml" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    oid, article_title, article_tags, article_author_email, article_author_id, article_author_nickname, article_category_id,
+    article_comment_count, article_view_count, article_reward_point, article_permalink, 
+    article_originlink, article_latest_cmt_time, article_latest_cmter_name, article_commentable, 
+    article_status, article_type, article_good_count, article_bad_count, article_collect_count, article_source,article_thumb,
+    article_city, article_IP, article_perfect, article_create_time, article_update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    article_content,article_content_html
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_blog_article
+    where oid = #{oid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_blog_article
+    where oid = #{oid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.linsu.modular.blog.model.Article">
+    insert into t_blog_article (oid, article_title, article_tags, 
+      article_author_email, article_author_id, article_author_nickname,article_category_id,
+      article_comment_count, article_view_count, 
+      article_reward_point, article_permalink, article_originlink, 
+      article_latest_cmt_time, article_latest_cmter_name, 
+      article_commentable, article_status, article_type, 
+      article_good_count, article_bad_count, article_collect_count, 
+      article_city, article_IP, article_perfect, article_source,
+      article_create_time, article_update_time, 
+      article_content,article_content_html)
+    values (#{oid,jdbcType=BIGINT}, #{articleTitle,jdbcType=VARCHAR}, #{articleTags,jdbcType=VARCHAR}, 
+      #{articleAuthorEmail,jdbcType=VARCHAR}, #{articleAuthorId,jdbcType=BIGINT}, #{articleCategoryId,jdbcType=BIGINT}, 
+      #{articleCommentCount,jdbcType=INTEGER}, #{articleViewCount,jdbcType=INTEGER}, 
+      #{articleRewardPoint,jdbcType=INTEGER}, #{articlePermalink,jdbcType=VARCHAR}, #{articleOriginlink,jdbcType=VARCHAR}, 
+      #{articleLatestCmtTime,jdbcType=TIMESTAMP}, #{articleLatestCmterName,jdbcType=VARCHAR}, 
+      #{articleCommentable,jdbcType=INTEGER}, #{articleStatus,jdbcType=INTEGER}, #{articleType,jdbcType=INTEGER}, 
+      #{articleGoodCount,jdbcType=INTEGER}, #{articleBadCount,jdbcType=INTEGER}, #{articleCollectCount,jdbcType=INTEGER}, 
+      #{articleCity,jdbcType=VARCHAR}, #{articleIp,jdbcType=VARCHAR}, #{articlePerfect,jdbcType=INTEGER}, {articleSource,jdbcType=VARCHAR},
+      #{articleCreateTime,jdbcType=TIMESTAMP}, #{articleUpdateTime,jdbcType=TIMESTAMP}, 
+      #{articleContent,jdbcType=LONGVARCHAR},#{articleContent_html,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.linsu.modular.blog.model.Article">
+    insert into t_blog_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="articleTitle != null">
+        article_title,
+      </if>
+      <if test="articleTags != null">
+        article_tags,
+      </if>
+      <if test="articleAuthorEmail != null">
+        article_author_email,
+      </if>
+      <if test="articleAuthorId != null">
+        article_author_id,
+      </if>
+      <if test="articleAuthorNickname != null">
+        article_author_nickname,
+      </if>
+      <if test="articleCategoryId != null">
+        article_category_id,
+      </if>
+      <if test="articleCommentCount != null">
+        article_comment_count,
+      </if>
+      <if test="articleViewCount != null">
+        article_view_count,
+      </if>
+      <if test="articleRewardPoint != null">
+        article_reward_point,
+      </if>
+      <if test="articlePermalink != null">
+        article_permalink,
+      </if>
+      <if test="articleOriginlink != null">
+        article_originlink,
+      </if>
+      <if test="articleLatestCmtTime != null">
+        article_latest_cmt_time,
+      </if>
+      <if test="articleLatestCmterName != null">
+        article_latest_cmter_name,
+      </if>
+      <if test="articleCommentable != null">
+        article_commentable,
+      </if>
+      <if test="articleStatus != null">
+        article_status,
+      </if>
+      <if test="articleType != null">
+        article_type,
+      </if>
+      <if test="articleGoodCount != null">
+        article_good_count,
+      </if>
+      <if test="articleBadCount != null">
+        article_bad_count,
+      </if>
+      <if test="articleCollectCount != null">
+        article_collect_count,
+      </if>
+      <if test="articleCity != null">
+        article_city,
+      </if>
+      <if test="articleIp != null">
+        article_IP,
+      </if>
+      <if test="articlePerfect != null">
+        article_perfect,
+      </if>
+      <if test="articleSource != null">
+        article_source,
+      </if>
+      <if test="articleThumb != null">
+        article_thumb,
+      </if>
+      <if test="articleCreateTime != null">
+        article_create_time,
+      </if>
+      <if test="articleUpdateTime != null">
+        article_update_time,
+      </if>
+      <if test="articleContent != null">
+        article_content,
+      </if>
+      <if test="articleContentHtml != null">
+        article_content_html,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=BIGINT},
+      </if>
+      <if test="articleTitle != null">
+        #{articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="articleTags != null">
+        #{articleTags,jdbcType=VARCHAR},
+      </if>
+      <if test="articleAuthorEmail != null">
+        #{articleAuthorEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="articleAuthorId != null">
+        #{articleAuthorId,jdbcType=BIGINT},
+      </if>
+      <if test="articleAuthorNickname != null">
+        #{articleAuthorNickname, jdbcType=VARCHAR},
+      </if>
+      <if test="articleCategoryId != null">
+        #{articleCategoryId,jdbcType=BIGINT},
+      </if>
+      <if test="articleCommentCount != null">
+        #{articleCommentCount,jdbcType=INTEGER},
+      </if>
+      <if test="articleViewCount != null">
+        #{articleViewCount,jdbcType=INTEGER},
+      </if>
+      <if test="articleRewardPoint != null">
+        #{articleRewardPoint,jdbcType=INTEGER},
+      </if>
+      <if test="articlePermalink != null">
+        #{articlePermalink,jdbcType=VARCHAR},
+      </if>
+      <if test="articleOriginlink != null">
+        #{articleOriginlink,jdbcType=VARCHAR},
+      </if>
+      <if test="articleLatestCmtTime != null">
+        #{articleLatestCmtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleLatestCmterName != null">
+        #{articleLatestCmterName,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCommentable != null">
+        #{articleCommentable,jdbcType=INTEGER},
+      </if>
+      <if test="articleStatus != null">
+        #{articleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="articleType != null">
+        #{articleType,jdbcType=INTEGER},
+      </if>
+      <if test="articleGoodCount != null">
+        #{articleGoodCount,jdbcType=INTEGER},
+      </if>
+      <if test="articleBadCount != null">
+        #{articleBadCount,jdbcType=INTEGER},
+      </if>
+      <if test="articleCollectCount != null">
+        #{articleCollectCount,jdbcType=INTEGER},
+      </if>
+      <if test="articleCity != null">
+        #{articleCity,jdbcType=VARCHAR},
+      </if>
+      <if test="articleIp != null">
+        #{articleIp,jdbcType=VARCHAR},
+      </if>
+      <if test="articlePerfect != null">
+        #{articlePerfect,jdbcType=INTEGER},
+      </if>
+      <if test="articleSource != null">
+        #{articleSource,jdbcType=VARCHAR},
+      </if>
+      <if test="articleThumb != null">
+        #{articleThumb,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCreateTime != null">
+        #{articleCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleUpdateTime != null">
+        #{articleUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleContent != null">
+        #{articleContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="articleContentHtml != null">
+        #{articleContentHtml,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.linsu.modular.blog.model.Article">
+    update t_blog_article
+    <set>
+      <if test="articleTitle != null">
+        article_title = #{articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="articleTags != null">
+        article_tags = #{articleTags,jdbcType=VARCHAR},
+      </if>
+      <if test="articleAuthorEmail != null">
+        article_author_email = #{articleAuthorEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="articleAuthorId != null">
+        article_author_id = #{articleAuthorId,jdbcType=BIGINT},
+      </if>
+      <if test="articleCategoryId != null">
+        article_category_id = #{articleCategoryId,jdbcType=BIGINT},
+      </if>
+      <if test="articleCommentCount != null">
+        article_comment_count = #{articleCommentCount,jdbcType=INTEGER},
+      </if>
+      <if test="articleViewCount != null">
+        article_view_count = #{articleViewCount,jdbcType=INTEGER},
+      </if>
+      <if test="articleRewardPoint != null">
+        article_reward_point = #{articleRewardPoint,jdbcType=INTEGER},
+      </if>
+      <if test="articlePermalink != null">
+        article_permalink = #{articlePermalink,jdbcType=VARCHAR},
+      </if>
+      <if test="articleOriginlink != null">
+        article_originlink = #{articleOriginlink,jdbcType=VARCHAR},
+      </if>
+      <if test="articleLatestCmtTime != null">
+        article_latest_cmt_time = #{articleLatestCmtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleLatestCmterName != null">
+        article_latest_cmter_name = #{articleLatestCmterName,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCommentable != null">
+        article_commentable = #{articleCommentable,jdbcType=INTEGER},
+      </if>
+      <if test="articleStatus != null">
+        article_status = #{articleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="articleType != null">
+        article_type = #{articleType,jdbcType=INTEGER},
+      </if>
+      <if test="articleGoodCount != null">
+        article_good_count = #{articleGoodCount,jdbcType=INTEGER},
+      </if>
+      <if test="articleBadCount != null">
+        article_bad_count = #{articleBadCount,jdbcType=INTEGER},
+      </if>
+      <if test="articleCollectCount != null">
+        article_collect_count = #{articleCollectCount,jdbcType=INTEGER},
+      </if>
+      <if test="articleCity != null">
+        article_city = #{articleCity,jdbcType=VARCHAR},
+      </if>
+      <if test="articleIp != null">
+        article_IP = #{articleIp,jdbcType=VARCHAR},
+      </if>
+      <if test="articlePerfect != null">
+        article_perfect = #{articlePerfect,jdbcType=INTEGER},
+      </if>
+      <if test="articleSource != null">
+        article_source = #{articleSource,jdbcType=VARCHAR},
+      </if>
+      <if test="articleThumb != null">
+        article_thumb= #{articleThumb,jdbcType=VARCHAR},
+      </if>
+      <if test="articleCreateTime != null">
+        article_create_time = #{articleCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleUpdateTime != null">
+        article_update_time = #{articleUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleContent != null">
+        article_content = #{articleContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="articleContentHtml != null">
+        article_content_html = #{articleContentHtml,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.linsu.modular.blog.model.Article">
+    update t_blog_article
+    set article_title = #{articleTitle,jdbcType=VARCHAR},
+      article_tags = #{articleTags,jdbcType=VARCHAR},
+      article_author_email = #{articleAuthorEmail,jdbcType=VARCHAR},
+      article_author_id = #{articleAuthorId,jdbcType=BIGINT},
+      article_category_id = #{articleCategoryId,jdbcType=BIGINT},
+      article_comment_count = #{articleCommentCount,jdbcType=INTEGER},
+      article_view_count = #{articleViewCount,jdbcType=INTEGER},
+      article_reward_point = #{articleRewardPoint,jdbcType=INTEGER},
+      article_permalink = #{articlePermalink,jdbcType=VARCHAR},
+      article_originlink = #{articleOriginlink,jdbcType=VARCHAR},
+      article_latest_cmt_time = #{articleLatestCmtTime,jdbcType=TIMESTAMP},
+      article_latest_cmter_name = #{articleLatestCmterName,jdbcType=VARCHAR},
+      article_commentable = #{articleCommentable,jdbcType=INTEGER},
+      article_status = #{articleStatus,jdbcType=INTEGER},
+      article_type = #{articleType,jdbcType=INTEGER},
+      article_good_count = #{articleGoodCount,jdbcType=INTEGER},
+      article_bad_count = #{articleBadCount,jdbcType=INTEGER},
+      article_collect_count = #{articleCollectCount,jdbcType=INTEGER},
+      article_city = #{articleCity,jdbcType=VARCHAR},
+      article_IP = #{articleIp,jdbcType=VARCHAR},
+      article_perfect = #{articlePerfect,jdbcType=INTEGER},
+      article_source = #{articleSource,jdbcType=VARCHAR},
+      article_thumb = #{articleThumb,jdbcType=VARCHAR},
+      article_create_time = #{articleCreateTime,jdbcType=TIMESTAMP},
+      article_update_time = #{articleUpdateTime,jdbcType=TIMESTAMP},
+      article_content = #{articleContent,jdbcType=LONGVARCHAR},
+      article_content_html = #{articleContentHtml,jdbcType=LONGVARCHAR}
+    where oid = #{oid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.linsu.modular.blog.model.Article">
+    update t_blog_article
+    set article_title = #{articleTitle,jdbcType=VARCHAR},
+      article_tags = #{articleTags,jdbcType=VARCHAR},
+      article_author_email = #{articleAuthorEmail,jdbcType=VARCHAR},
+      article_author_id = #{articleAuthorId,jdbcType=BIGINT},
+      article_category_id = #{articleCategoryId,jdbcType=BIGINT},
+      article_comment_count = #{articleCommentCount,jdbcType=INTEGER},
+      article_view_count = #{articleViewCount,jdbcType=INTEGER},
+      article_reward_point = #{articleRewardPoint,jdbcType=INTEGER},
+      article_permalink = #{articlePermalink,jdbcType=VARCHAR},
+      article_originlink = #{articleOriginlink,jdbcType=VARCHAR},
+      article_latest_cmt_time = #{articleLatestCmtTime,jdbcType=TIMESTAMP},
+      article_latest_cmter_name = #{articleLatestCmterName,jdbcType=VARCHAR},
+      article_commentable = #{articleCommentable,jdbcType=INTEGER},
+      article_status = #{articleStatus,jdbcType=INTEGER},
+      article_type = #{articleType,jdbcType=INTEGER},
+      article_good_count = #{articleGoodCount,jdbcType=INTEGER},
+      article_bad_count = #{articleBadCount,jdbcType=INTEGER},
+      article_collect_count = #{articleCollectCount,jdbcType=INTEGER},
+      article_city = #{articleCity,jdbcType=VARCHAR},
+      article_IP = #{articleIp,jdbcType=VARCHAR},
+      article_perfect = #{articlePerfect,jdbcType=INTEGER},
+      article_source = #{articleSource,jdbcType=VARCHAR},
+      article_thumb = #{articleThumb,jdbcType=VARCHAR},
+      article_create_time = #{articleCreateTime,jdbcType=TIMESTAMP},
+      article_update_time = #{articleUpdateTime,jdbcType=TIMESTAMP}
+    where oid = #{oid,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 标签 -->
+  <resultMap id="TagResultMap" type="com.linsu.modular.blog.model.Tag">
+    <id column="tag_oid" jdbcType="BIGINT" property="oid" />
+    <result column="tag_comment_count" jdbcType="INTEGER" property="tagCommentCount" />
+    <result column="tag_follower_count" jdbcType="INTEGER" property="tagFollowerCount" />
+    <result column="tag_link_count" jdbcType="INTEGER" property="tagLinkCount" />
+    <result column="tag_title" jdbcType="VARCHAR" property="tagTitle" />
+    <result column="tag_uri" jdbcType="VARCHAR" property="tagUri" />
+    <result column="tag_category_id" jdbcType="BIGINT" property="tagCategoryId" />
+    <result column="tag_create_time" jdbcType="TIMESTAMP" property="tagCreateTime" />
+  </resultMap>
+  <sql id="Tag_Column_List">
+    T.oid as tag_oid, T.tag_comment_count, T.tag_follower_count, T.tag_link_count, T.tag_title, T.tag_uri, T.tag_category_id, 
+    T.tag_create_time
+  </sql>
+  <!-- 分类 -->
+  <resultMap id="CategoryResultMap" type="com.linsu.modular.blog.model.Category">
+    <id column="category_oid" jdbcType="BIGINT" property="oid" />
+    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+    <result column="category_status" jdbcType="INTEGER" property="categoryStatus" />
+    <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon" />
+    <result column="category_create_time" jdbcType="TIMESTAMP" property="categoryCreateTime" />
+  </resultMap>
+  <sql id="Category_Column_List">
+    C.oid as category_oid, C.category_name, C.category_status, C.category_icon, C.category_create_time
+  </sql>
+  <sql id="Article_Column_List">
+    A.oid, A.article_title, A.article_tags, A.article_author_email, A.article_author_id, A.article_author_nickname, A.article_category_id,
+    A.article_comment_count, A.article_view_count, A.article_reward_point, A.article_permalink, 
+    A.article_originlink, A.article_latest_cmt_time, A.article_latest_cmter_name, A.article_commentable, 
+    A.article_status, A.article_type, A.article_good_count, A.article_bad_count, A.article_collect_count, 
+    A.article_city, A.article_IP, A.article_perfect,A.article_source,A.article_thumb, A.article_create_time, A.article_update_time
+  </sql>
+  
+  <resultMap type="com.linsu.modular.blog.dto.ArticleDTO" id="ArticleDTOResultMap" extends="ResultMapWithBLOBs">
+  	<association property="category" javaType="com.linsu.modular.blog.model.Category" column="article_category_id" resultMap="CategoryResultMap"/>
+  	<collection property="tags" ofType="com.linsu.modular.blog.model.Tag" resultMap="TagResultMap"/>
+  </resultMap>
+  
+  <!-- 根据分类查找 -->
+  <select id="listByCategory" resultMap="ArticleDTOResultMap">
+  	SELECT
+		<include refid="Article_Column_List"></include>,
+		<include refid="Category_Column_List"></include>,
+		<include refid="Tag_Column_List"></include>
+	FROM
+		(
+			SELECT
+				<include refid="Base_Column_List"></include>
+			FROM
+				t_blog_article
+			WHERE
+				article_category_id = #{categoryId} and article_type=2 and article_status=1
+			limit #{offset}, #{limit}
+		) A 
+	LEFT OUTER JOIN t_blog_category C ON A.article_category_id = C.oid
+	LEFT OUTER JOIN t_blog_article_tag ATAG ON ATAG.article_id = A.oid
+	LEFT OUTER JOIN t_blog_tag T ON T.oid = ATAG.tag_id
+    order by A.article_create_time desc
+  </select>
+  
+  <!-- 根据标签查找 -->
+  <select id="listByTag" resultMap="ArticleDTOResultMap">
+		SELECT
+			D.*, 
+			<include refid="Category_Column_List"></include>,
+		FROM
+			(
+				SELECT
+					<include refid="Article_Column_List"></include>,
+					<include refid="Tag_Column_List"></include>
+				FROM
+					t_blog_article A
+				LEFT OUTER JOIN t_blog_article_tag ATAG ON ATAG.article_id = A.oid
+				LEFT OUTER JOIN t_blog_tag T ON T.oid = ATAG.tag_id
+                where T.oid = #{tagId} and article_type=2 and article_status=1
+				limit #{offset}, #{limit}
+			) D
+		LEFT OUTER JOIN t_blog_category C ON D.article_category_id = C.oid
+    order by A.article_create_time desc
+  </select>
+
+  <update id="updateViewCnt">
+    update t_blog_article set article_view_count= article_view_count+#{step} where oid=#{articleId};
+  </update>
+
+  <update id="updateGoodCnt">
+    update t_blog_article set article_good_count= article_view_count+#{step} where oid=#{articleId};
+  </update>
+  
+</mapper>

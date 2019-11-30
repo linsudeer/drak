@@ -1,0 +1,49 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    session:
+      timeout: 30m
+    context-path: /
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+  port: 9000
+spring:
+  http:
+    converters:
+      preferred-json-mapper: fastjson
+  aop:
+    proxy-target-class: true #false为启用jdk默认动态代理,true为cglib动态代
+  devtools:
+    restart:
+      exclude: static/**,doc/**,templates/**
+  datasource:
+    # 使用druid数据源
+    platform: mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/manager?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: root
+  redis:
+      host: 127.0.0.1
+      port: 6379
+      password:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: true
+  activiti:
+    process-definition-location-prefix: classpath*:/processes/
+    database-schema-update: false
+    history-level: full
+    check-process-definitions: false #关闭activiti自动部署（使用流程设计器部署，不使用具体文件访问方式）
+
+
+logging:
+  level.root: INFO

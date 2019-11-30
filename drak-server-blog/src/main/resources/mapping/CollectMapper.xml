@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linsu.modular.blog.dao.CollectMapper">
+  <resultMap id="BaseResultMap" type="com.linsu.modular.blog.model.Collect">
+    <id column="oid" jdbcType="BIGINT" property="oid" />
+    <result column="collect_user_id" jdbcType="BIGINT" property="collectUserId" />
+    <result column="collect_article_id" jdbcType="BIGINT" property="collectArticleId" />
+    <result column="collect_article_title" jdbcType="VARCHAR" property="collectArticleTitle" />
+    <result column="collect_create_time" jdbcType="TIMESTAMP" property="collectCreateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    oid, collect_user_id, collect_article_id, collect_article_title, collect_create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_blog_collect
+    where oid = #{oid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_blog_collect
+    where oid = #{oid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.linsu.modular.blog.model.Collect">
+    insert into t_blog_collect (oid, collect_user_id, collect_article_id, 
+      collect_article_title, collect_create_time
+      )
+    values (#{oid,jdbcType=BIGINT}, #{collectUserId,jdbcType=BIGINT}, #{collectArticleId,jdbcType=BIGINT}, 
+      #{collectArticleTitle,jdbcType=VARCHAR}, #{collectCreateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.linsu.modular.blog.model.Collect">
+    insert into t_blog_collect
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="collectUserId != null">
+        collect_user_id,
+      </if>
+      <if test="collectArticleId != null">
+        collect_article_id,
+      </if>
+      <if test="collectArticleTitle != null">
+        collect_article_title,
+      </if>
+      <if test="collectCreateTime != null">
+        collect_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=BIGINT},
+      </if>
+      <if test="collectUserId != null">
+        #{collectUserId,jdbcType=BIGINT},
+      </if>
+      <if test="collectArticleId != null">
+        #{collectArticleId,jdbcType=BIGINT},
+      </if>
+      <if test="collectArticleTitle != null">
+        #{collectArticleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="collectCreateTime != null">
+        #{collectCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.linsu.modular.blog.model.Collect">
+    update t_blog_collect
+    <set>
+      <if test="collectUserId != null">
+        collect_user_id = #{collectUserId,jdbcType=BIGINT},
+      </if>
+      <if test="collectArticleId != null">
+        collect_article_id = #{collectArticleId,jdbcType=BIGINT},
+      </if>
+      <if test="collectArticleTitle != null">
+        collect_article_title = #{collectArticleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="collectCreateTime != null">
+        collect_create_time = #{collectCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.linsu.modular.blog.model.Collect">
+    update t_blog_collect
+    set collect_user_id = #{collectUserId,jdbcType=BIGINT},
+      collect_article_id = #{collectArticleId,jdbcType=BIGINT},
+      collect_article_title = #{collectArticleTitle,jdbcType=VARCHAR},
+      collect_create_time = #{collectCreateTime,jdbcType=TIMESTAMP}
+    where oid = #{oid,jdbcType=BIGINT}
+  </update>
+</mapper>

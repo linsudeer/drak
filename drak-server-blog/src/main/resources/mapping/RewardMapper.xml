@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linsu.modular.blog.dao.RewardMapper">
+  <resultMap id="BaseResultMap" type="com.linsu.modular.blog.model.Reward">
+    <id column="oid" jdbcType="BIGINT" property="oid" />
+    <result column="reward_amount" jdbcType="REAL" property="rewardAmount" />
+    <result column="reward_user_id" jdbcType="BIGINT" property="rewardUserId" />
+    <result column="reward_author_id" jdbcType="BIGINT" property="rewardAuthorId" />
+    <result column="reward_article_id" jdbcType="BIGINT" property="rewardArticleId" />
+    <result column="reward_user_name" jdbcType="VARCHAR" property="rewardUserName" />
+    <result column="reward_create_time" jdbcType="TIMESTAMP" property="rewardCreateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    oid, reward_amount, reward_user_id, reward_author_id, reward_article_id, reward_user_name, 
+    reward_create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_blog_reward
+    where oid = #{oid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_blog_reward
+    where oid = #{oid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.linsu.modular.blog.model.Reward">
+    insert into t_blog_reward (oid, reward_amount, reward_user_id, 
+      reward_author_id, reward_article_id, reward_user_name, 
+      reward_create_time)
+    values (#{oid,jdbcType=BIGINT}, #{rewardAmount,jdbcType=REAL}, #{rewardUserId,jdbcType=BIGINT}, 
+      #{rewardAuthorId,jdbcType=BIGINT}, #{rewardArticleId,jdbcType=BIGINT}, #{rewardUserName,jdbcType=VARCHAR}, 
+      #{rewardCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.linsu.modular.blog.model.Reward">
+    insert into t_blog_reward
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="rewardAmount != null">
+        reward_amount,
+      </if>
+      <if test="rewardUserId != null">
+        reward_user_id,
+      </if>
+      <if test="rewardAuthorId != null">
+        reward_author_id,
+      </if>
+      <if test="rewardArticleId != null">
+        reward_article_id,
+      </if>
+      <if test="rewardUserName != null">
+        reward_user_name,
+      </if>
+      <if test="rewardCreateTime != null">
+        reward_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=BIGINT},
+      </if>
+      <if test="rewardAmount != null">
+        #{rewardAmount,jdbcType=REAL},
+      </if>
+      <if test="rewardUserId != null">
+        #{rewardUserId,jdbcType=BIGINT},
+      </if>
+      <if test="rewardAuthorId != null">
+        #{rewardAuthorId,jdbcType=BIGINT},
+      </if>
+      <if test="rewardArticleId != null">
+        #{rewardArticleId,jdbcType=BIGINT},
+      </if>
+      <if test="rewardUserName != null">
+        #{rewardUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardCreateTime != null">
+        #{rewardCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.linsu.modular.blog.model.Reward">
+    update t_blog_reward
+    <set>
+      <if test="rewardAmount != null">
+        reward_amount = #{rewardAmount,jdbcType=REAL},
+      </if>
+      <if test="rewardUserId != null">
+        reward_user_id = #{rewardUserId,jdbcType=BIGINT},
+      </if>
+      <if test="rewardAuthorId != null">
+        reward_author_id = #{rewardAuthorId,jdbcType=BIGINT},
+      </if>
+      <if test="rewardArticleId != null">
+        reward_article_id = #{rewardArticleId,jdbcType=BIGINT},
+      </if>
+      <if test="rewardUserName != null">
+        reward_user_name = #{rewardUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardCreateTime != null">
+        reward_create_time = #{rewardCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.linsu.modular.blog.model.Reward">
+    update t_blog_reward
+    set reward_amount = #{rewardAmount,jdbcType=REAL},
+      reward_user_id = #{rewardUserId,jdbcType=BIGINT},
+      reward_author_id = #{rewardAuthorId,jdbcType=BIGINT},
+      reward_article_id = #{rewardArticleId,jdbcType=BIGINT},
+      reward_user_name = #{rewardUserName,jdbcType=VARCHAR},
+      reward_create_time = #{rewardCreateTime,jdbcType=TIMESTAMP}
+    where oid = #{oid,jdbcType=BIGINT}
+  </update>
+</mapper>

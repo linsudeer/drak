@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linsu.modular.blog.dao.ArticleTagMapper">
+  <resultMap id="BaseResultMap" type="com.linsu.modular.blog.model.ArticleTag">
+    <id column="oid" jdbcType="BIGINT" property="oid" />
+    <result column="tag_id" jdbcType="BIGINT" property="tagId" />
+    <result column="article_id" jdbcType="BIGINT" property="articleId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    oid, tag_id, article_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_blog_article_tag
+    where oid = #{oid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_blog_article_tag
+    where oid = #{oid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.linsu.modular.blog.model.ArticleTag">
+    insert into t_blog_article_tag (oid, tag_id, article_id, 
+      create_time)
+    values (#{oid,jdbcType=BIGINT}, #{tagId,jdbcType=BIGINT}, #{articleId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.linsu.modular.blog.model.ArticleTag">
+    insert into t_blog_article_tag
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="tagId != null">
+        tag_id,
+      </if>
+      <if test="articleId != null">
+        article_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=BIGINT},
+      </if>
+      <if test="tagId != null">
+        #{tagId,jdbcType=BIGINT},
+      </if>
+      <if test="articleId != null">
+        #{articleId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.linsu.modular.blog.model.ArticleTag">
+    update t_blog_article_tag
+    <set>
+      <if test="tagId != null">
+        tag_id = #{tagId,jdbcType=BIGINT},
+      </if>
+      <if test="articleId != null">
+        article_id = #{articleId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.linsu.modular.blog.model.ArticleTag">
+    update t_blog_article_tag
+    set tag_id = #{tagId,jdbcType=BIGINT},
+      article_id = #{articleId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where oid = #{oid,jdbcType=BIGINT}
+  </update>
+
+  <delete id="deleteByArticleId" parameterType="java.lang.Long">
+    delete from t_blog_article_tag where article_id=#{articleId}
+  </delete>
+</mapper>

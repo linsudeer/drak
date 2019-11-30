@@ -1,0 +1,35 @@
+debug: true
+
+server:
+  port: 8080
+  
+spring:
+  profiles: dev
+  redis:
+    host: 192.168.10.206
+    port: 6379
+    password:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/learn?autoReconnect=true&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: root
+    database: learn
+    filters: log4j,wall,mergeStat
+    
+logging:
+  level.root: info
+  level.com.linsu: debug
+  path: logs/
+  file: blog.log
+
+fdfs:
+  # 状态，true 使用 false 不使用
+  use: true
+  http_server_url: http://192.168.10.202
+  tracker_servers: 192.168.10.202:22122
+  connect_timeout_in_seconds: 50
+  network_timeout_in_seconds: 300
+  charset: UTF-8
+  http_tracker_http_port: 6666
+  http_anti_steal_token: no
+  http_secret_key: FastDFS1234567890

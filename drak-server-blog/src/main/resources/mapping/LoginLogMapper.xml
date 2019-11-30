@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linsu.modular.blog.dao.LoginLogMapper">
+  <resultMap id="BaseResultMap" type="com.linsu.modular.blog.model.LoginLog">
+    <id column="oid" jdbcType="BIGINT" property="oid" />
+    <result column="log_name" jdbcType="VARCHAR" property="logName" />
+    <result column="log_user_id" jdbcType="BIGINT" property="logUserId" />
+    <result column="log_succeed" jdbcType="VARCHAR" property="logSucceed" />
+    <result column="log_ip" jdbcType="VARCHAR" property="logIp" />
+    <result column="log_create_time" jdbcType="TIMESTAMP" property="logCreateTime" />
+    <result column="log_update_time" jdbcType="TIMESTAMP" property="logUpdateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.linsu.modular.blog.model.LoginLog">
+    <result column="log_message" jdbcType="LONGVARCHAR" property="logMessage" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    oid, log_name, log_user_id, log_succeed, log_ip, log_create_time, log_update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    log_message
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_blog_login_log
+    where oid = #{oid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_blog_login_log
+    where oid = #{oid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.linsu.modular.blog.model.LoginLog">
+    insert into t_blog_login_log (oid, log_name, log_user_id, 
+      log_succeed, log_ip, log_create_time, 
+      log_update_time, log_message)
+    values (#{oid,jdbcType=BIGINT}, #{logName,jdbcType=VARCHAR}, #{logUserId,jdbcType=BIGINT}, 
+      #{logSucceed,jdbcType=VARCHAR}, #{logIp,jdbcType=VARCHAR}, #{logCreateTime,jdbcType=TIMESTAMP}, 
+      #{logUpdateTime,jdbcType=TIMESTAMP}, #{logMessage,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.linsu.modular.blog.model.LoginLog">
+    insert into t_blog_login_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="logName != null">
+        log_name,
+      </if>
+      <if test="logUserId != null">
+        log_user_id,
+      </if>
+      <if test="logSucceed != null">
+        log_succeed,
+      </if>
+      <if test="logIp != null">
+        log_ip,
+      </if>
+      <if test="logCreateTime != null">
+        log_create_time,
+      </if>
+      <if test="logUpdateTime != null">
+        log_update_time,
+      </if>
+      <if test="logMessage != null">
+        log_message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=BIGINT},
+      </if>
+      <if test="logName != null">
+        #{logName,jdbcType=VARCHAR},
+      </if>
+      <if test="logUserId != null">
+        #{logUserId,jdbcType=BIGINT},
+      </if>
+      <if test="logSucceed != null">
+        #{logSucceed,jdbcType=VARCHAR},
+      </if>
+      <if test="logIp != null">
+        #{logIp,jdbcType=VARCHAR},
+      </if>
+      <if test="logCreateTime != null">
+        #{logCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logUpdateTime != null">
+        #{logUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logMessage != null">
+        #{logMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.linsu.modular.blog.model.LoginLog">
+    update t_blog_login_log
+    <set>
+      <if test="logName != null">
+        log_name = #{logName,jdbcType=VARCHAR},
+      </if>
+      <if test="logUserId != null">
+        log_user_id = #{logUserId,jdbcType=BIGINT},
+      </if>
+      <if test="logSucceed != null">
+        log_succeed = #{logSucceed,jdbcType=VARCHAR},
+      </if>
+      <if test="logIp != null">
+        log_ip = #{logIp,jdbcType=VARCHAR},
+      </if>
+      <if test="logCreateTime != null">
+        log_create_time = #{logCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logUpdateTime != null">
+        log_update_time = #{logUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logMessage != null">
+        log_message = #{logMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.linsu.modular.blog.model.LoginLog">
+    update t_blog_login_log
+    set log_name = #{logName,jdbcType=VARCHAR},
+      log_user_id = #{logUserId,jdbcType=BIGINT},
+      log_succeed = #{logSucceed,jdbcType=VARCHAR},
+      log_ip = #{logIp,jdbcType=VARCHAR},
+      log_create_time = #{logCreateTime,jdbcType=TIMESTAMP},
+      log_update_time = #{logUpdateTime,jdbcType=TIMESTAMP},
+      log_message = #{logMessage,jdbcType=LONGVARCHAR}
+    where oid = #{oid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.linsu.modular.blog.model.LoginLog">
+    update t_blog_login_log
+    set log_name = #{logName,jdbcType=VARCHAR},
+      log_user_id = #{logUserId,jdbcType=BIGINT},
+      log_succeed = #{logSucceed,jdbcType=VARCHAR},
+      log_ip = #{logIp,jdbcType=VARCHAR},
+      log_create_time = #{logCreateTime,jdbcType=TIMESTAMP},
+      log_update_time = #{logUpdateTime,jdbcType=TIMESTAMP}
+    where oid = #{oid,jdbcType=BIGINT}
+  </update>
+</mapper>

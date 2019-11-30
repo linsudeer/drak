@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linsu.modular.blog.dao.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.linsu.modular.blog.model.Comment">
+    <id column="oid" jdbcType="BIGINT" property="oid" />
+    <result column="comment_author_id" jdbcType="VARCHAR" property="commentAuthorId" />
+    <result column="comment_author_email" jdbcType="VARCHAR" property="commentAuthorEmail" />
+    <result column="comment_ont_article_id" jdbcType="BIGINT" property="commentOntArticleId" />
+    <result column="comment_status" jdbcType="INTEGER" property="commentStatus" />
+    <result column="comment_ip" jdbcType="VARCHAR" property="commentIp" />
+    <result column="comment_good_count" jdbcType="INTEGER" property="commentGoodCount" />
+    <result column="comment_bad_count" jdbcType="INTEGER" property="commentBadCount" />
+    <result column="comment_reply_count" jdbcType="INTEGER" property="commentReplyCount" />
+    <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+    <result column="comment_create_time" jdbcType="TIMESTAMP" property="commentCreateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    oid, comment_author_id, comment_author_email, comment_ont_article_id, comment_status, 
+    comment_ip, comment_good_count, comment_bad_count, comment_reply_count, comment_content, 
+    comment_create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_blog_comment
+    where oid = #{oid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_blog_comment
+    where oid = #{oid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.linsu.modular.blog.model.Comment">
+    insert into t_blog_comment (oid, comment_author_id, comment_author_email, 
+      comment_ont_article_id, comment_status, comment_ip, 
+      comment_good_count, comment_bad_count, comment_reply_count, 
+      comment_content, comment_create_time)
+    values (#{oid,jdbcType=BIGINT}, #{commentAuthorId,jdbcType=VARCHAR}, #{commentAuthorEmail,jdbcType=VARCHAR}, 
+      #{commentOntArticleId,jdbcType=BIGINT}, #{commentStatus,jdbcType=INTEGER}, #{commentIp,jdbcType=VARCHAR}, 
+      #{commentGoodCount,jdbcType=INTEGER}, #{commentBadCount,jdbcType=INTEGER}, #{commentReplyCount,jdbcType=INTEGER}, 
+      #{commentContent,jdbcType=VARCHAR}, #{commentCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.linsu.modular.blog.model.Comment">
+    insert into t_blog_comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="commentAuthorId != null">
+        comment_author_id,
+      </if>
+      <if test="commentAuthorEmail != null">
+        comment_author_email,
+      </if>
+      <if test="commentOntArticleId != null">
+        comment_ont_article_id,
+      </if>
+      <if test="commentStatus != null">
+        comment_status,
+      </if>
+      <if test="commentIp != null">
+        comment_ip,
+      </if>
+      <if test="commentGoodCount != null">
+        comment_good_count,
+      </if>
+      <if test="commentBadCount != null">
+        comment_bad_count,
+      </if>
+      <if test="commentReplyCount != null">
+        comment_reply_count,
+      </if>
+      <if test="commentContent != null">
+        comment_content,
+      </if>
+      <if test="commentCreateTime != null">
+        comment_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=BIGINT},
+      </if>
+      <if test="commentAuthorId != null">
+        #{commentAuthorId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentAuthorEmail != null">
+        #{commentAuthorEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="commentOntArticleId != null">
+        #{commentOntArticleId,jdbcType=BIGINT},
+      </if>
+      <if test="commentStatus != null">
+        #{commentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="commentIp != null">
+        #{commentIp,jdbcType=VARCHAR},
+      </if>
+      <if test="commentGoodCount != null">
+        #{commentGoodCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentBadCount != null">
+        #{commentBadCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentReplyCount != null">
+        #{commentReplyCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentContent != null">
+        #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentCreateTime != null">
+        #{commentCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.linsu.modular.blog.model.Comment">
+    update t_blog_comment
+    <set>
+      <if test="commentAuthorId != null">
+        comment_author_id = #{commentAuthorId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentAuthorEmail != null">
+        comment_author_email = #{commentAuthorEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="commentOntArticleId != null">
+        comment_ont_article_id = #{commentOntArticleId,jdbcType=BIGINT},
+      </if>
+      <if test="commentStatus != null">
+        comment_status = #{commentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="commentIp != null">
+        comment_ip = #{commentIp,jdbcType=VARCHAR},
+      </if>
+      <if test="commentGoodCount != null">
+        comment_good_count = #{commentGoodCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentBadCount != null">
+        comment_bad_count = #{commentBadCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentReplyCount != null">
+        comment_reply_count = #{commentReplyCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentContent != null">
+        comment_content = #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentCreateTime != null">
+        comment_create_time = #{commentCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.linsu.modular.blog.model.Comment">
+    update t_blog_comment
+    set comment_author_id = #{commentAuthorId,jdbcType=VARCHAR},
+      comment_author_email = #{commentAuthorEmail,jdbcType=VARCHAR},
+      comment_ont_article_id = #{commentOntArticleId,jdbcType=BIGINT},
+      comment_status = #{commentStatus,jdbcType=INTEGER},
+      comment_ip = #{commentIp,jdbcType=VARCHAR},
+      comment_good_count = #{commentGoodCount,jdbcType=INTEGER},
+      comment_bad_count = #{commentBadCount,jdbcType=INTEGER},
+      comment_reply_count = #{commentReplyCount,jdbcType=INTEGER},
+      comment_content = #{commentContent,jdbcType=VARCHAR},
+      comment_create_time = #{commentCreateTime,jdbcType=TIMESTAMP}
+    where oid = #{oid,jdbcType=BIGINT}
+  </update>
+</mapper>

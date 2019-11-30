@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linsu.modular.blog.dao.InvitecodeMapper">
+  <resultMap id="BaseResultMap" type="com.linsu.modular.blog.model.Invitecode">
+    <id column="oid" jdbcType="BIGINT" property="oid" />
+    <result column="invitecode_code" jdbcType="VARCHAR" property="invitecodeCode" />
+    <result column="invitecode_generator_id" jdbcType="BIGINT" property="invitecodeGeneratorId" />
+    <result column="invitecode_user_id" jdbcType="BIGINT" property="invitecodeUserId" />
+    <result column="invitecode_use_time" jdbcType="TIMESTAMP" property="invitecodeUseTime" />
+    <result column="invitecode_status" jdbcType="INTEGER" property="invitecodeStatus" />
+    <result column="invitecode_create_time" jdbcType="TIMESTAMP" property="invitecodeCreateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    oid, invitecode_code, invitecode_generator_id, invitecode_user_id, invitecode_use_time, 
+    invitecode_status, invitecode_create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_blog_invitecode
+    where oid = #{oid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_blog_invitecode
+    where oid = #{oid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.linsu.modular.blog.model.Invitecode">
+    insert into t_blog_invitecode (oid, invitecode_code, invitecode_generator_id, 
+      invitecode_user_id, invitecode_use_time, invitecode_status, 
+      invitecode_create_time)
+    values (#{oid,jdbcType=BIGINT}, #{invitecodeCode,jdbcType=VARCHAR}, #{invitecodeGeneratorId,jdbcType=BIGINT}, 
+      #{invitecodeUserId,jdbcType=BIGINT}, #{invitecodeUseTime,jdbcType=TIMESTAMP}, #{invitecodeStatus,jdbcType=INTEGER}, 
+      #{invitecodeCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.linsu.modular.blog.model.Invitecode">
+    insert into t_blog_invitecode
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="invitecodeCode != null">
+        invitecode_code,
+      </if>
+      <if test="invitecodeGeneratorId != null">
+        invitecode_generator_id,
+      </if>
+      <if test="invitecodeUserId != null">
+        invitecode_user_id,
+      </if>
+      <if test="invitecodeUseTime != null">
+        invitecode_use_time,
+      </if>
+      <if test="invitecodeStatus != null">
+        invitecode_status,
+      </if>
+      <if test="invitecodeCreateTime != null">
+        invitecode_create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=BIGINT},
+      </if>
+      <if test="invitecodeCode != null">
+        #{invitecodeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="invitecodeGeneratorId != null">
+        #{invitecodeGeneratorId,jdbcType=BIGINT},
+      </if>
+      <if test="invitecodeUserId != null">
+        #{invitecodeUserId,jdbcType=BIGINT},
+      </if>
+      <if test="invitecodeUseTime != null">
+        #{invitecodeUseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invitecodeStatus != null">
+        #{invitecodeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="invitecodeCreateTime != null">
+        #{invitecodeCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.linsu.modular.blog.model.Invitecode">
+    update t_blog_invitecode
+    <set>
+      <if test="invitecodeCode != null">
+        invitecode_code = #{invitecodeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="invitecodeGeneratorId != null">
+        invitecode_generator_id = #{invitecodeGeneratorId,jdbcType=BIGINT},
+      </if>
+      <if test="invitecodeUserId != null">
+        invitecode_user_id = #{invitecodeUserId,jdbcType=BIGINT},
+      </if>
+      <if test="invitecodeUseTime != null">
+        invitecode_use_time = #{invitecodeUseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invitecodeStatus != null">
+        invitecode_status = #{invitecodeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="invitecodeCreateTime != null">
+        invitecode_create_time = #{invitecodeCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.linsu.modular.blog.model.Invitecode">
+    update t_blog_invitecode
+    set invitecode_code = #{invitecodeCode,jdbcType=VARCHAR},
+      invitecode_generator_id = #{invitecodeGeneratorId,jdbcType=BIGINT},
+      invitecode_user_id = #{invitecodeUserId,jdbcType=BIGINT},
+      invitecode_use_time = #{invitecodeUseTime,jdbcType=TIMESTAMP},
+      invitecode_status = #{invitecodeStatus,jdbcType=INTEGER},
+      invitecode_create_time = #{invitecodeCreateTime,jdbcType=TIMESTAMP}
+    where oid = #{oid,jdbcType=BIGINT}
+  </update>
+</mapper>
