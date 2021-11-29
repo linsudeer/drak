@@ -14,7 +14,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "element-ui": "^2.4.6",
-    "mavon-editor": "^2.6.17",
+    "mavon-editor": "^2.8.2",
     "qs": "^6.5.2",
     "store": "^2.0.12",
     "vee-validate": "^2.1.0-beta.8",
